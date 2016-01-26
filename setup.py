@@ -58,12 +58,12 @@ data_files_config(data_files, 'docs','src/docs/','*')
 #It will be used to collect entries without installing the package
 janitoo_entry_points = {
     "janitoo.threads": [
-        "rpii2c = janitoo_raspberry_i2c.thread_i2c:make_thread",
+        "rpi1wire = janitoo_raspberry_1wire.thread_1wire:make_thread",
     ],
 }
 
 setup(
-    name = 'janitoo_raspberry_i2c',
+    name = 'janitoo_raspberry_1wire',
     description = "A server which handle many controller (hardware, onewire, i2c, ...) dedicated to the raspberry",
     long_description = "A server which handle many controller (hardware, onewire, i2c, ...) dedicated to the raspberry",
     author='Sébastien GALLET aka bibi2100 <bibi21000@gmail.com>',
@@ -89,7 +89,7 @@ setup(
     zip_safe = False,
     packages = find_packages('src', exclude=["scripts", "docs", "config"]),
     package_dir = { '': 'src' },
-    keywords = "raspberry,i2c",
+    keywords = "raspberry,1wire",
     include_package_data=True,
     data_files = data_files,
     install_requires=[

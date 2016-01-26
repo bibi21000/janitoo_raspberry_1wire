@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
+"""The Raspberry i2c bus
 
-"""Unittests for Janitoo-Roomba Server.
+
+
+Installation :
+
+.. code-block:: bash
+
+    sudo apt-get install python-pycamera
+
 """
+
 __license__ = """
     This file is part of Janitoo.
 
@@ -23,36 +32,43 @@ __author__ = 'Sébastien GALLET aka bibi21000'
 __email__ = 'bibi21000@gmail.com'
 __copyright__ = "Copyright © 2013-2014-2015 Sébastien GALLET aka bibi21000"
 
-import sys, os
-import time, datetime
-import unittest
-import threading
+# Set default logging handler to avoid "No handler found" warnings.
 import logging
-from pkg_resources import iter_entry_points
+logger = logging.getLogger(__name__)
+import os, sys
+import threading
+import time
+import datetime
+import socket
+from janitoo.thread import JNTBusThread
+from janitoo.bus import JNTBus
+from janitoo.component import JNTComponent
+from janitoo.thread import BaseThread
+from janitoo.options import get_option_autostart
 
-from janitoo_nosetests.server import JNTTServer, JNTTServerCommon
-from janitoo_nosetests.thread import JNTTThread, JNTTThreadCommon
-from janitoo_nosetests.component import JNTTComponent, JNTTComponentCommon
-
-from janitoo.utils import json_dumps, json_loads
-from janitoo.utils import HADD_SEP, HADD
-from janitoo.utils import TOPIC_HEARTBEAT
-from janitoo.utils import TOPIC_NODES, TOPIC_NODES_REPLY, TOPIC_NODES_REQUEST
-from janitoo.utils import TOPIC_BROADCAST_REPLY, TOPIC_BROADCAST_REQUEST
-from janitoo.utils import TOPIC_VALUES_USER, TOPIC_VALUES_CONFIG, TOPIC_VALUES_SYSTEM, TOPIC_VALUES_BASIC
-
-from janitoo_raspberry_i2c.thread_i2c import RpiI2CThread
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
 from janitoo.classes import COMMAND_DESC
 
-COMMAND_DISCOVERY = 0x5000
+COMMAND_CONTROLLER = 0x1050
 
-assert(COMMAND_DESC[COMMAND_DISCOVERY] == 'COMMAND_DISCOVERY')
+assert(COMMAND_DESC[COMMAND_CONTROLLER] == 'COMMAND_CONTROLLER')
 ##############################################################
 
-class TestRpiI2CThread(JNTTThread, JNTTThreadCommon):
-    """Test the thread
+def make_thread(options):
+    if get_option_autostart(options, 'rpi1wire') == True:
+        return Rpi1wireThread(options)
+    else:
+        return None
+
+class Rpi1wireThread(JNTBusThread):
+    """The I2C thread
+
     """
-    thread_name = "rpii2c"
+    def init_bus(self):
+        """Build the bus
+        """
+        from janitoo_raspberry_1wire.bus_1wire import OnewireBus
+        self.section = 'rpi1wire'
+        self.bus = OnewireBus(options=self.options, oid=self.section, product_name="Raspberry 1Wire bus")

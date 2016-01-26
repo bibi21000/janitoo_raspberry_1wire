@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""The Raspberry i2c bus
-
-
+"""The Raspberry camera worker
 
 Installation :
 
@@ -51,24 +49,32 @@ from janitoo.options import get_option_autostart
 #Must be implemented for non-regression
 from janitoo.classes import COMMAND_DESC
 
-COMMAND_CONTROLLER = 0x1050
+COMMAND_CAMERA_PREVIEW = 0x2200
+COMMAND_CAMERA_PHOTO = 0x2201
+COMMAND_CAMERA_VIDEO = 0x2202
+COMMAND_CAMERA_STREAM = 0x2203
 
-assert(COMMAND_DESC[COMMAND_CONTROLLER] == 'COMMAND_CONTROLLER')
+assert(COMMAND_DESC[COMMAND_CAMERA_PREVIEW] == 'COMMAND_CAMERA_PREVIEW')
+assert(COMMAND_DESC[COMMAND_CAMERA_PHOTO] == 'COMMAND_CAMERA_PHOTO')
+assert(COMMAND_DESC[COMMAND_CAMERA_VIDEO] == 'COMMAND_CAMERA_VIDEO')
+assert(COMMAND_DESC[COMMAND_CAMERA_STREAM] == 'COMMAND_CAMERA_STREAM')
 ##############################################################
 
-def make_thread(options):
-    if get_option_autostart(options, 'rpii2c') == True:
-        return RpiI2CThread(options)
-    else:
-        return None
-
-class RpiI2CThread(JNTBusThread):
-    """The I2C thread
-
+class OnewireBus(JNTBus):
+    """A pseudo-bus to handle the Raspberry Onewire Bus
     """
-    def init_bus(self):
-        """Build the bus
+    def __init__(self, **kwargs):
         """
-        from janitoo_raspberry_i2c.bus_i2c import I2CBus
-        self.section = 'rpii2c'
-        self.bus = I2CBus(options=self.options, oid=self.section, product_name="Raspberry I2C bus")
+        :param int bus_id: the SMBus id (see Raspberry Pi documentation)
+        :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
+        """
+        JNTBus.__init__(self, **kwargs)
+        self._lock = threading.Lock()
+
+    def acquire(self):
+        """Get a lock on the bus"""
+        pass
+
+    def release(self):
+        """Release a lock on the bus"""
+        pass
