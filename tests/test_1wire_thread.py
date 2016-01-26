@@ -41,7 +41,7 @@ from janitoo.utils import TOPIC_NODES, TOPIC_NODES_REPLY, TOPIC_NODES_REQUEST
 from janitoo.utils import TOPIC_BROADCAST_REPLY, TOPIC_BROADCAST_REQUEST
 from janitoo.utils import TOPIC_VALUES_USER, TOPIC_VALUES_CONFIG, TOPIC_VALUES_SYSTEM, TOPIC_VALUES_BASIC
 
-from janitoo_raspberry_i2c.thread_i2c import RpiI2CThread
+from janitoo_raspberry_1wire.thread_1wire import Rpi1wireThread
 
 ##############################################################
 #Check that we are in sync with the official command classes
@@ -53,7 +53,7 @@ COMMAND_DISCOVERY = 0x5000
 assert(COMMAND_DESC[COMMAND_DISCOVERY] == 'COMMAND_DISCOVERY')
 ##############################################################
 
-class TestRpiI2CThread(JNTTThread, JNTTThreadCommon):
+class TestRpi1wireThread(JNTTThread, JNTTThreadCommon):
     """Test the thread
     """
-    thread_name = "rpii2c"
+    thread_name = "rpi1wire"
