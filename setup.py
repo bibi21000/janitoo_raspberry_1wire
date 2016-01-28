@@ -61,7 +61,7 @@ janitoo_entry_points = {
         "rpi1wire = janitoo_raspberry_1wire.thread_1wire:make_thread",
     ],
     "janitoo.components": [
-        "rpi1wire.ds18B20 = janitoo_raspberry_1wire.components_1wire:make_ds18B20",
+        "rpi1wire.ds18B20 = janitoo_raspberry_1wire.components:make_ds18B20",
     ],
 }
 
