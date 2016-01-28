@@ -38,6 +38,8 @@ import threading
 import time
 import datetime
 import socket
+import re
+
 from janitoo.thread import JNTBusThread
 from janitoo.bus import JNTBus
 from janitoo.component import JNTComponent
@@ -68,8 +70,20 @@ class OnewireBus(JNTBus):
         :param int bus_id: the SMBus id (see Raspberry Pi documentation)
         :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
         """
+        try:
+            os.system('modprobe w1-gpio')
+            os.system('modprobe w1-therm')
+        except :
+            log.exception("Can't load w1-* kernel modules")
         JNTBus.__init__(self, **kwargs)
-        self._lock = threading.Lock()
+        self._1wire_lock = threading.Lock()
+        uuid="sensors_dir"
+        self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
+            node_uuid=self.uuid,
+            help='The sensor directory',
+            label='dir.',
+            default='/sys/bus/w1/devices/',
+        )
 
     def acquire(self):
         """Get a lock on the bus"""
