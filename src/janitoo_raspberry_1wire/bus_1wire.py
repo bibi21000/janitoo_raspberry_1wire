@@ -77,7 +77,7 @@ class OnewireBus(JNTBus):
             log.exception("Can't load w1-* kernel modules")
         JNTBus.__init__(self, **kwargs)
         self._1wire_lock = threading.Lock()
-        uuid="sensors_dir"
+        uuid="w1_sensors_dir"
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
             help='The sensor directory',

@@ -142,6 +142,10 @@ travis-deps:
 	@echo
 	@echo "Travis dependencies for ${MODULENAME} installed."
 
+docker-deps:
+	@echo
+	@echo "Docker dependencies for ${MODULENAME} installed."
+
 tests:
 	-mkdir -p ${BUILDDIR}/docs/html/tools/coverage
 	-mkdir -p ${BUILDDIR}/docs/html/tools/nosetests
