@@ -111,6 +111,6 @@ class DS18B20(JNTComponent):
                     data = str(float(m.group(2)) / 1000.0)
             f.close()
             ret = float(data)
-        except (IOError), e:
+        except:
             logger.exception('Exception when reading sensor')
         return ret
