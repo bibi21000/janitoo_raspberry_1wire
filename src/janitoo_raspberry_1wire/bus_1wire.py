@@ -65,7 +65,7 @@ assert(COMMAND_DESC[COMMAND_CAMERA_STREAM] == 'COMMAND_CAMERA_STREAM')
 class OnewireBus(JNTBus):
     """A pseudo-bus to handle the Raspberry Onewire Bus
     """
-    def __init__(self, **kwargs):
+    def __init__(self, oid='rpi1wire', **kwargs):
         """
         :param int bus_id: the SMBus id (see Raspberry Pi documentation)
         :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
@@ -75,7 +75,7 @@ class OnewireBus(JNTBus):
             os.system('modprobe w1-therm')
         except :
             log.exception("Can't load w1-* kernel modules")
-        JNTBus.__init__(self, **kwargs)
+        JNTBus.__init__(self, oid=oid, **kwargs)
         self._1wire_lock = threading.Lock()
         uuid="w1_sensors_dir"
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,

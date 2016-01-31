@@ -29,6 +29,7 @@ import unittest
 import threading
 import logging
 from pkg_resources import iter_entry_points
+import mock
 
 from janitoo_nosetests import JNTTBase
 from janitoo_nosetests.server import JNTTServer, JNTTServerCommon
@@ -41,7 +42,11 @@ from janitoo.utils import TOPIC_HEARTBEAT
 from janitoo.utils import TOPIC_NODES, TOPIC_NODES_REPLY, TOPIC_NODES_REQUEST
 from janitoo.utils import TOPIC_BROADCAST_REPLY, TOPIC_BROADCAST_REQUEST
 from janitoo.utils import TOPIC_VALUES_USER, TOPIC_VALUES_CONFIG, TOPIC_VALUES_SYSTEM, TOPIC_VALUES_BASIC
+from janitoo.runner import jnt_parse_args
+from janitoo.options import JNTOptions
+from janitoo.utils import HADD, HADD_SEP, CADD, json_dumps, json_loads
 
+from janitoo_raspberry_1wire.bus_1wire import OnewireBus
 import janitoo_raspberry_1wire.components as components
 
 ##############################################################
@@ -64,7 +69,11 @@ class TestDS18B20Component(JNTTComponent, JNTTComponentCommon):
 class TestDQ18B20(JNTTBase):
     """Test
     """
+    conf = "tests/data/janitoo_raspberry_1wire.conf"
 
     def test_001_get(self):
-        compo = components.DS18B20()
+        with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.conf]):
+            options = JNTOptions(vars(jnt_parse_args()))
+        bus = OnewireBus(options=options)
+        compo = components.DS18B20( bus=bus)
         temp = compo.temperature(None,0)
