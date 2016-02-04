@@ -114,3 +114,11 @@ class DS18B20(JNTComponent):
         except:
             logger.exception('Exception when reading sensor')
         return ret
+
+    def check_heartbeat(self):
+        """Check that the component is 'available'
+
+        """
+        if 'temperature' not in self.values:
+            return False
+        return self.values['temperature'].data is not None
