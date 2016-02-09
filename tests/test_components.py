@@ -71,9 +71,22 @@ class TestDQ18B20(JNTTBase):
     """
     conf = "tests/data/janitoo_raspberry_1wire.conf"
 
-    def test_001_get(self):
+    def test_101_get(self):
+        self.onlyRasperryTest()
         with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.conf]):
             options = JNTOptions(vars(jnt_parse_args()))
         bus = OnewireBus(options=options)
         compo = components.DS18B20( bus=bus)
         temp = compo.temperature(None,0)
+        self.assertNotEqual(temp, None)
+        self.assertTrue(comp.check_heartbeat())
+
+    def test_101_get_bad(self):
+        self.skipRasperryTest()
+        with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.conf]):
+            options = JNTOptions(vars(jnt_parse_args()))
+        bus = OnewireBus(options=options)
+        compo = components.DS18B20( bus=bus)
+        temp = compo.temperature(None,0)
+        self.assertEqual(temp, None)
+        self.assertFalse(comp.check_heartbeat())
