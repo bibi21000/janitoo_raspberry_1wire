@@ -87,7 +87,7 @@ class DS18B20(JNTComponent):
             label='Temp',
             get_data_cb=self.temperature,
         )
-        poll_value = self.values[uuid].create_poll_value()
+        poll_value = self.values[uuid].create_poll_value(default=300)
         self.values[poll_value.uuid] = poll_value
 
         uuid="hexadd"
