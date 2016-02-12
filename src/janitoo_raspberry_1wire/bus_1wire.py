@@ -46,6 +46,8 @@ from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
 
+from janitoo_raspberry_1wire.thread_1wire import OID
+
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
@@ -65,7 +67,7 @@ assert(COMMAND_DESC[COMMAND_CAMERA_STREAM] == 'COMMAND_CAMERA_STREAM')
 class OnewireBus(JNTBus):
     """A pseudo-bus to handle the Raspberry Onewire Bus
     """
-    def __init__(self, oid='rpi1wire', **kwargs):
+    def __init__(self, oid=OID, **kwargs):
         """
         :param int bus_id: the SMBus id (see Raspberry Pi documentation)
         :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
@@ -77,7 +79,7 @@ class OnewireBus(JNTBus):
             log.exception("Can't load w1-* kernel modules")
         JNTBus.__init__(self, oid=oid, **kwargs)
         self._1wire_lock = threading.Lock()
-        uuid="sensors_dir"
+        uuid="%s_sensors_dir"%OID
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
             help='The sensor directory',

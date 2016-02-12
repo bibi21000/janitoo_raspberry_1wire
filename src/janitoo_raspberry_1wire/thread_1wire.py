@@ -62,6 +62,8 @@ def make_thread(options):
     else:
         return None
 
+OID = 'rpi1wire'
+
 class Rpi1wireThread(JNTBusThread):
     """The I2C thread
 
@@ -70,5 +72,5 @@ class Rpi1wireThread(JNTBusThread):
         """Build the bus
         """
         from janitoo_raspberry_1wire.bus_1wire import OnewireBus
-        self.section = 'rpi1wire'
+        self.section = OID
         self.bus = OnewireBus(options=self.options, oid=self.section, product_name="Raspberry 1Wire bus")

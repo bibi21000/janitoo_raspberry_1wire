@@ -46,6 +46,8 @@ from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
 
+from janitoo_raspberry_1wire.thread_1wire import OID
+
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
@@ -102,7 +104,8 @@ class DS18B20(JNTComponent):
         data = None
         ret = None
         try:
-            f=open(os.path.join(self.get_bus_value("sensors_dir").data, self.values["hexadd"].get_data_index(index=index), 'w1_slave'), 'r')
+            logger.debug("values in bus %s" % self._bus.values)
+            f=open(os.path.join(self.get_bus_value("%s_sensors_dir"%OID).data, self.values["hexadd"].get_data_index(index=index), 'w1_slave'), 'r')
             line = f.readline()
             if re.match(r"([0-9a-f]{2} ){9}: crc=[0-9a-f]{2} YES", line):
                 line = f.readline()
