@@ -92,3 +92,10 @@ class OnewireBus(JNTBus):
     def release(self):
         """Release a lock on the bus"""
         pass
+
+    def check_heartbeat(self):
+        """Check that the bus is 'available'. Is replaced by the node one when it's creates
+
+        """
+        sdir = self.get_bus_value("sensors_dir").data
+        return sdir is not None and os.path.isdir(sdir)
