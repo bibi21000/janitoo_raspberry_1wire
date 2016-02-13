@@ -47,6 +47,7 @@ from janitoo.options import JNTOptions
 from janitoo.utils import HADD, HADD_SEP, CADD, json_dumps, json_loads
 
 from janitoo_raspberry_1wire.bus_1wire import OnewireBus
+from janitoo_raspberry_1wire.thread_1wire import Rpi1wireThread
 import janitoo_raspberry_1wire.components as components
 
 ##############################################################
@@ -73,7 +74,7 @@ class TestDQ18B20(JNTTBase):
 
     def test_101_get(self):
         self.onlyRasperryTest()
-        with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.conf]):
+        with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.getDataFile(self.conf)]):
             options = JNTOptions(vars(jnt_parse_args()))
         bus = OnewireBus(options=options)
         compo = components.DS18B20( bus=bus)
@@ -83,7 +84,7 @@ class TestDQ18B20(JNTTBase):
 
     def test_101_get_bad(self):
         self.skipRasperryTest()
-        with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.conf]):
+        with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.getDataFile(self.conf)]):
             options = JNTOptions(vars(jnt_parse_args()))
         bus = OnewireBus(options=options)
         compo = components.DS18B20( bus=bus)
