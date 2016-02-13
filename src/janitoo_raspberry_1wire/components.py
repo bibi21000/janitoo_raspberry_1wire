@@ -74,9 +74,9 @@ class DS18B20(JNTComponent):
         """
         """
         oid = kwargs.pop('oid', 'rpi1wire.ds18B20')
-        name = kwargs.pop('name', "DS18B20 sensor")
-        product_name = kwargs.pop('product_name', "DS18B20")
-        product_type = kwargs.pop('product_type', "Temperature")
+        name = kwargs.pop('name', "Onewire DS18B20 sensor")
+        product_name = kwargs.pop('product_name', "DS18B20 sensor")
+        product_type = kwargs.pop('product_type', "Temperature sensor")
         product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         JNTComponent.__init__(self, oid=oid, bus=bus, addr=addr, name=name,
                 product_name=product_name, product_type=product_type, product_manufacturer="Janitoo", **kwargs)
