@@ -70,3 +70,12 @@ class TestPiSerser(JNTTServer, JNTTServerCommon):
         self.assertBroadcastRequest(cmd_class=COMMAND_DISCOVERY, uuid='request_info_nodes', client_hadd=HADD%(9999,0))
         self.stop()
 
+    def test_120_server_start_no_error_in_log(self):
+        self.onlyRasperryTest()
+        self.start()
+        try:
+            time.sleep(120)
+            self.assertInLogfile('Found heartbeats in timeout')
+            self.assertNotInLogfile('^ERROR ')
+        finally:
+            self.stop()
