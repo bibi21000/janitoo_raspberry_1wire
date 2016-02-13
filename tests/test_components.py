@@ -79,7 +79,7 @@ class TestDQ18B20(JNTTBase):
         compo = components.DS18B20( bus=bus)
         temp = compo.temperature(None,0)
         self.assertNotEqual(temp, None)
-        self.assertTrue(comp.check_heartbeat())
+        self.assertTrue(compo.check_heartbeat())
 
     def test_101_get_bad(self):
         self.skipRasperryTest()
@@ -89,4 +89,4 @@ class TestDQ18B20(JNTTBase):
         compo = components.DS18B20( bus=bus)
         temp = compo.temperature(None,0)
         self.assertEqual(temp, None)
-        self.assertFalse(comp.check_heartbeat())
+        self.assertFalse(compo.check_heartbeat())
