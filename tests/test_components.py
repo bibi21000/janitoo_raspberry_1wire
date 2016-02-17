@@ -64,10 +64,10 @@ assert(COMMAND_DESC[COMMAND_DISCOVERY] == 'COMMAND_DISCOVERY')
 class TestDS18B20Component(JNTTComponent, JNTTComponentCommon):
     """Test the component
     """
-    component_name = "rpi1wire.ds18B20"
+    component_name = "rpi1wire.ds18b20"
 
 
-class TestDQ18B20(JNTTBase):
+class TestDS18B20(JNTTBase):
     """Test
     """
     conf = "tests/data/janitoo_raspberry_1wire.conf"
