@@ -64,6 +64,7 @@ class TestPiSerser(JNTTServer, JNTTServerCommon):
     hadds = [HADD%(151,0), HADD%(151,1)]
 
     def test_101_server_start_no_error_in_log(self):
+        self.onlyRasperryTest()
         self.start()
         try:
             time.sleep(120)
