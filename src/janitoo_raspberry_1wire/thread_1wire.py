@@ -1,13 +1,32 @@
 # -*- coding: utf-8 -*-
-"""The Raspberry i2c bus
-
-
+"""The Raspberry onewire bus
 
 Installation :
 
+Load modules at boot :
+
 .. code-block:: bash
 
-    sudo apt-get install python-pycamera
+    sudo vim /etc/modules
+
+To add :
+
+.. code-block:: bash
+
+    w1-gpio
+    w1-therm
+
+Update boot config :
+
+.. code-block:: bash
+
+    sudo vim /boot/config.txt
+
+To add :
+
+.. code-block:: bash
+
+    dtoverlay=w1-gpio,gpiopin=4
 
 """
 
