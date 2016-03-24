@@ -69,7 +69,7 @@ class TestDS18B20(JNTTBase):
         with mock.patch('sys.argv', ['test', 'start', '--conf_file=%s' % self.getDataFile(self.conf)]):
             options = JNTOptions(vars(jnt_parse_args()))
         bus = OnewireBus(options=options)
-        compo = components.DS18B20( bus=bus)
+        compo = components.DS18B20( bus=bus, hexadd="28-00000463b745")
         temp = compo.temperature(None,0)
         self.assertNotEqual(temp, None)
         self.assertTrue(compo.check_heartbeat())

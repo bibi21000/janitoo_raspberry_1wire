@@ -97,7 +97,7 @@ class DS18B20(JNTComponent):
             node_uuid=self.uuid,
             help='The hexadecimal address of the DS18B20',
             label='Addr',
-            default="28-000005e2fdc3",
+            default=kwargs.get("hexadd", "28-000005e2fdc3"),
         )
 
     def temperature(self, node_uuid, index):
