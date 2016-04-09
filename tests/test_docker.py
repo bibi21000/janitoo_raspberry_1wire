@@ -43,3 +43,19 @@ from janitoo.utils import HADD_SEP, HADD
 
 from janitoo_raspberry.server import PiServer
 
+class TestPiSerser(JNTTDockerServer, JNTTDockerServerCommon):
+    """Test the server
+    """
+    loglevel = logging.DEBUG
+    path = '/tmp/janitoo_test'
+    broker_user = 'toto'
+    broker_password = 'toto'
+    server_class = PiServer
+    server_conf = "tests/data/janitoo_raspberry_1wire.conf"
+    hadds = [HADD%(151,0), HADD%(151,1)]
+
+    def test_040_server_start_no_error_in_log(self):
+        JNTTDockerServer.onlyDockerTest()
+        JNTTDockerServerCommon.minimal_040_server_start_reload_restart(self)
+
+
