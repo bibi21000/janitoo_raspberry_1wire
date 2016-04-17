@@ -101,10 +101,10 @@ class DS18B20(JNTComponent):
         )
 
     def temperature(self, node_uuid, index):
-        data = None
         ret = None
+        f = None
         try:
-            logger.debug("values in bus %s" % self._bus.values)
+            logger.debug("[%s] - Values in bus %s", self.__class__.__name__, self._bus.values)
             f=open(os.path.join(self.get_bus_value("%s_sensors_dir"%OID).data, self.values["hexadd"].get_data_index(index=index), 'w1_slave'), 'r')
             line = f.readline()
             if re.match(r"([0-9a-f]{2} ){9}: crc=[0-9a-f]{2} YES", line):
@@ -112,10 +112,12 @@ class DS18B20(JNTComponent):
                 m = re.match(r"([0-9a-f]{2} ){9}t=([+-]?[0-9]+)", line)
                 if m:
                     data = str(float(m.group(2)) / 1000.0)
-            f.close()
-            ret = float(data)
+                    ret = float(data)
         except:
-            logger.exception('Exception when reading sensor')
+            logger.exception('[%s] - Exception when reading sensor', self.__class__.__name__)
+        finally:
+            if f is not None:
+                f.close()
         return ret
 
     def check_heartbeat(self):

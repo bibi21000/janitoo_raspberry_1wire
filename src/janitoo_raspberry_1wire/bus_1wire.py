@@ -74,11 +74,13 @@ class OnewireBus(JNTBus):
         """
         try:
             os.system('modprobe w1-gpio')
+        except :
+            log.exception("Can't load w1-* kernel modules")
+        try:
             os.system('modprobe w1-therm')
         except :
             log.exception("Can't load w1-* kernel modules")
         JNTBus.__init__(self, oid=oid, **kwargs)
-        self._1wire_lock = threading.Lock()
         uuid="%s_sensors_dir"%OID
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
@@ -86,14 +88,6 @@ class OnewireBus(JNTBus):
             label='dir.',
             default='/sys/bus/w1/devices/',
         )
-
-    def acquire(self):
-        """Get a lock on the bus"""
-        pass
-
-    def release(self):
-        """Release a lock on the bus"""
-        pass
 
     def check_heartbeat(self):
         """Check that the bus is 'available'. Is replaced by the node one when it's creates

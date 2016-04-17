@@ -75,13 +75,13 @@ COMMAND_CONTROLLER = 0x1050
 assert(COMMAND_DESC[COMMAND_CONTROLLER] == 'COMMAND_CONTROLLER')
 ##############################################################
 
+OID = 'rpi1wire'
+
 def make_thread(options):
-    if get_option_autostart(options, 'rpi1wire') == True:
+    if get_option_autostart(options, OID) == True:
         return Rpi1wireThread(options)
     else:
         return None
-
-OID = 'rpi1wire'
 
 class Rpi1wireThread(JNTBusThread):
     """The I2C thread
