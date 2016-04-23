@@ -75,11 +75,11 @@ class OnewireBus(JNTBus):
         try:
             os.system('modprobe w1-gpio')
         except :
-            log.exception("Can't load w1-* kernel modules")
+            logger.exception("Can't load w1-* kernel modules")
         try:
             os.system('modprobe w1-therm')
         except :
-            log.exception("Can't load w1-* kernel modules")
+            logger.exception("Can't load w1-* kernel modules")
         JNTBus.__init__(self, oid=oid, **kwargs)
         uuid="%s_sensors_dir"%OID
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
