@@ -72,14 +72,8 @@ class OnewireBus(JNTBus):
         :param int bus_id: the SMBus id (see Raspberry Pi documentation)
         :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
         """
-        try:
-            os.system('modprobe w1-gpio')
-        except :
-            logger.exception("Can't load w1-* kernel modules")
-        try:
-            os.system('modprobe w1-therm')
-        except :
-            logger.exception("Can't load w1-* kernel modules")
+        self.kernel_modprobe('w1-gpio')
+        self.kernel_modprobe('w1-therm')
         JNTBus.__init__(self, **kwargs)
         uuid="%s_sensors_dir"%OID
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
