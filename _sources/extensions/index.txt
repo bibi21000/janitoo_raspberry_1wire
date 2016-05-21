@@ -1,18 +1,7 @@
-janitoo_raspberry_1wire package
-===============================
+Janitoo's extensions
+====================
 
-Show janitoo's extensions.
+This package contains the following extensions for Janitoo.
 
-Core extensions
----------------
-
-Threads
-^^^^^^^
-
- - rpi1wire (janitoo_raspberry_1wire.thread_1wire:make_thread)
-
-Components
-^^^^^^^^^^
-
- - rpi1wire.ds18b20 (janitoo_raspberry_1wire.components:make_ds18b20)
+.. jnt-extensions::
 
