@@ -113,7 +113,7 @@ class DS18B20(JNTComponent):
                 if m:
                     data = str(float(m.group(2)) / 1000.0)
                     ret = float(data)
-        except:
+        except Exception:
             logger.exception('[%s] - Exception when reading sensor', self.__class__.__name__)
         finally:
             if f is not None:
