@@ -64,6 +64,8 @@ assert(COMMAND_DESC[COMMAND_CAMERA_VIDEO] == 'COMMAND_CAMERA_VIDEO')
 assert(COMMAND_DESC[COMMAND_CAMERA_STREAM] == 'COMMAND_CAMERA_STREAM')
 ##############################################################
 
+from janitoo_raspberry_i2c import OID
+
 def make_ds18b20(**kwargs):
     return DS18B20(**kwargs)
 
@@ -73,7 +75,7 @@ class DS18B20(JNTComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        oid = kwargs.pop('oid', 'rpi1wire.ds18b20')
+        oid = kwargs.pop('oid', '%s.ds18b20'%OID)
         name = kwargs.pop('name', "Onewire DS18B20 sensor")
         product_name = kwargs.pop('product_name', "DS18B20 sensor")
         product_type = kwargs.pop('product_type', "Temperature sensor")
