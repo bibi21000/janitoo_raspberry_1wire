@@ -62,7 +62,7 @@ assert(COMMAND_DESC[COMMAND_CAMERA_VIDEO] == 'COMMAND_CAMERA_VIDEO')
 assert(COMMAND_DESC[COMMAND_CAMERA_STREAM] == 'COMMAND_CAMERA_STREAM')
 ##############################################################
 
-from janitoo_raspberry_i2c import OID
+from janitoo_raspberry_1wire import OID
 
 class OnewireBus(JNTBus):
     """A pseudo-bus to handle the Raspberry Onewire Bus

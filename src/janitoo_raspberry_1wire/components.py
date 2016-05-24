@@ -46,7 +46,7 @@ from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
 
-from janitoo_raspberry_1wire.thread_1wire import OID
+from janitoo_raspberry_1wire import OID
 
 ##############################################################
 #Check that we are in sync with the official command classes
