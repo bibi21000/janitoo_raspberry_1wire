@@ -46,8 +46,6 @@ from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
 
-from janitoo_raspberry_1wire import OID
-
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
@@ -64,7 +62,7 @@ assert(COMMAND_DESC[COMMAND_CAMERA_VIDEO] == 'COMMAND_CAMERA_VIDEO')
 assert(COMMAND_DESC[COMMAND_CAMERA_STREAM] == 'COMMAND_CAMERA_STREAM')
 ##############################################################
 
-from janitoo_raspberry_i2c import OID
+from janitoo_raspberry_1wire import OID
 
 def make_ds18b20(**kwargs):
     return DS18B20(**kwargs)
