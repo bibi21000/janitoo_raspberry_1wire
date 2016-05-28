@@ -104,8 +104,7 @@ class DS18B20(JNTComponent):
         ret = None
         f = None
         try:
-            logger.debug("[%s] - Values in bus %s", self.__class__.__name__, self._bus.values)
-            f=open(os.path.join(self.get_bus_value("%s_sensors_dir"%OID).data, self.values["hexadd"].get_data_index(index=index), 'w1_slave'), 'r')
+            f=open(os.path.join(self.get_bus_value("sensors_dir").data, self.values["hexadd"].get_data_index(index=index), 'w1_slave'), 'r')
             line = f.readline()
             if re.match(r"([0-9a-f]{2} ){9}: crc=[0-9a-f]{2} YES", line):
                 line = f.readline()
