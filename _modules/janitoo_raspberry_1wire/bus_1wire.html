@@ -199,7 +199,7 @@
         <span class="sd">&quot;&quot;&quot;Check that the bus is &#39;available&#39;. Is replaced by the node one when it&#39;s creates</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">sdir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bus_value</span><span class="p">(</span><span class="s">&quot;sensors_dir&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">sdir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bus_value</span><span class="p">(</span><span class="s">&quot;sensors_dir&quot;</span><span class="p">,</span> <span class="n">oid</span> <span class="o">=</span> <span class="n">OID</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
         <span class="k">return</span> <span class="n">sdir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span></div></div>
 </pre></div>
 
